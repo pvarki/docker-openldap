@@ -1,7 +1,7 @@
 import requests
 
 class Token:
-    post_url = 'http://127.0.0.1:8080/realms/master/protocol/openid-connect/token'
+    post_url = 'http://keycloak:8080/realms/master/protocol/openid-connect/token'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic YWRtaW4tY2xpOg==',
@@ -19,8 +19,8 @@ assert r.status_code == 200
 assert token.access_token is not ''
 
 class User:
-    get_url = 'http://127.0.0.1:8080/admin/realms/RASENMAEHER/users?username='
-    post_url = 'http://127.0.0.1:8080/admin/realms/RASENMAEHER/users/'
+    get_url = 'http://keycloak:8080/admin/realms/RASENMAEHER/users?username='
+    post_url = 'http://localhost:8080/admin/realms/RASENMAEHER/users/'
     delete_url = post_url
     get_headers = {
         'Authorization': 'Bearer ' + token.access_token,
