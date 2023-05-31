@@ -13,4 +13,4 @@ jobs:
           cd ${{ github.workspace }}
           pip install pytest
           docker ps
-          pytest -v
+          sudo -E pytest -v
