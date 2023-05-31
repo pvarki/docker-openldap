@@ -1,7 +1,7 @@
 import requests
 
 class Token:
-    post_url = 'http://localhost:8080/realms/master/protocol/openid-connect/token'
+    post_url = 'http://keycloak:8080/realms/master/protocol/openid-connect/token'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic YWRtaW4tY2xpOg==',
