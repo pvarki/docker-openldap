@@ -4,3 +4,4 @@ runs:
   steps:
   - uses: actions/checkout@v3
   - run: docker compose build -f ./docker-compose-local.yml --build-arg WORKSPACE=${{ github.workspace }}
+    shell: bash
