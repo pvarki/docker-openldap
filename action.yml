@@ -5,5 +5,5 @@ runs:
   - uses: actions/checkout@v3
   - run: docker compose -f ./docker-compose-local.yml build --build-arg WORKSPACE=${{ github.workspace }}
     shell: bash
-  - run: docker compose -f ./docker-compose-local.yml up
+  - run: docker compose -f ./docker-compose-local.yml up -d
     shell: bash
