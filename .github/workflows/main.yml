@@ -9,5 +9,8 @@ jobs:
       - uses: actions/checkout@v3
       - run: docker compose -f ${{ github.workspace }}/docker-compose-local.yml build --build-arg WORKSPACE=${{ github.workspace }}
       - run: docker compose -f ${{ github.workspace }}/docker-compose-local.yml up -d
-      - run: docker ps
-      - uses: pvarki/ci@test/pytest-proto
+      - run: |
+          cd ${{ github.workspace }}
+          pip install pytest
+          docker ps
+          pytest -v
