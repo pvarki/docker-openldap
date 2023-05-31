@@ -7,5 +7,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v3
-      - name: Action self-test
-        uses: ./
+      - run: docker compose -f ${{ github.workspace }}/docker-compose-local.yml build --build-arg WORKSPACE=${{ github.workspace }}
+      - run: docker compose -f ${{ github.workspace }}/docker-compose-local.yml up -d
+      - uses: pvarki/ci@test/pytest-proto
