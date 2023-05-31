@@ -3,6 +3,4 @@ runs:
   using: composite
   steps:
   - uses: actions/checkout@v3
-  - uses: isbang/compose-action@v1.4.1
-    with:
-      compose-file: "./docker-compose-local.yml"
+  - run: docker compose build -f ./docker-compose-local.yml --build-arg WORKSPACE=${{ github.workspace }}
