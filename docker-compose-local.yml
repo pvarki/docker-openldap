@@ -1,64 +1,31 @@
 version: '3.7'
 
-services:
-  postgres:
-    image: postgres:12
-    environment:
-      - POSTGRES_USER=kc
-      - POSTGRES_PASSWORD=kc
-      - POSTGRES_DATABASE=kc
-    ports:
-      - '5432:5432'
+x-ldap_admin_env: &ldap_admin_env
+  # FIXME: take from env (which should be set to random)
+  LDAP_ADMIN_PASSWORD: &ldapadminpass ldapadminpwd # pragma: allowlist secret
+  LDAP_ADMIN_USERNAME: &ldapadminuser admin
 
+services:
   openldap:
+    image: pvarki/openldap:latest
     build:
       dockerfile: Dockerfile
     ports:
       - '1389:1389'
-      - '1636:1636'
     environment:
-      - LDAP_ROOT=dc=example,dc=org
-      - LDAP_ADMIN_USERNAME=admin
-      - LDAP_ADMIN_PASSWORD=adminpassword
-      - LDAP_SKIP_DEFAULT_TREE=yes
-      - LDAP_ALLOW_ANON_BINDING=no
-      #- LDAP_LOGLEVEL=-1
+      <<: *ldap_admin_env
+      LDAP_SKIP_DEFAULT_TREE: yes
+      LDAP_ALLOW_ANON_BINDING: no
+      # FIXME: get from env ??
+      LDAP_ROOT: "dc=example,dc=org"  # Probably needs to match the custom ldfis
+#      LDAP_LOGLEVEL: -1
+      # FIXME: Use letsencrypt cert ?
+      #LDAP_ENABLE_TLS: 1
+      #LDAP_TLS_CERT_FILE: /opt/bitnami/openldap/certs/openldap.crt
+      #LDAP_TLS_KEY_FILE: /opt/bitnami/openldap/certs/openldap.key
+      #LDAP_TLS_CA_FILE: /opt/bitnami/openldap/certs/openldapCA.crt
     volumes:
       - openldap_data:/bitnami/openldap
 
-  keycloak:
-    image: bitnami/keycloak:latest
-    ports:
-      - '8080:8080'
-    environment:
-      - KEYCLOAK_ADMIN_USER=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KEYCLOAK_DATABASE_NAME=postgres
-      - KEYCLOAK_DATABASE_HOST=postgres
-      - KEYCLOAK_DATABASE_USER=kc
-      - KEYCLOAK_DATABASE_PASSWORD=kc
-    depends_on:
-      - postgres
-      - openldap
-
-  # init container that sets up profile with realm on keycloak instance
-  keycloak-config-cli:
-    image: adorsys/keycloak-config-cli:latest-21.0.1
-    volumes:
-      - ./keycloak-config:/config
-    environment:
-      - KEYCLOAK_URL=http://keycloak:8080
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-      - KEYCLOAK_SSL-VERIFY=false
-      - KEYCLOAK_AVAILABILITYCHECK_ENABLED=true
-      - KEYCLOAK_AVAILABILITYCHECK_TIMEOUT=30s
-      - IMPORT_VAR_SUBSTITUTION_ENABLED=true
-      - LDAP_CONNECTION_URL=ldap://openldap:1389
-      - LDAP_ADMIN_PASSWORD=adminpassword
-    depends_on:
-      - keycloak
-
 volumes:
   openldap_data:
-    driver: local

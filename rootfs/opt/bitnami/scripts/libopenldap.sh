@@ -306,7 +306,7 @@ olcDbMaxSize: 1073741824
 olcSuffix: dc=my-domain,dc=com
 olcRootDN: cn=Manager,dc=my-domain,dc=com
 olcMonitoring: FALSE
-olcDbDirectory:	/bitnami/openldap/data
+olcDbDirectory:    /bitnami/openldap/data
 olcDbIndex: objectClass eq,pres
 olcDbIndex: ou,cn,mail,surname,givenname eq,pres,sub
 EOF
@@ -418,7 +418,7 @@ ldap_add_memberof_attribute() {
     info "Add memberof support"
     cat > "${LDAP_SHARE_DIR}/add_member_of.ldif" << EOF
 dn: cn=module,cn=config
-cn: module 
+cn: module
 objectClass: olcModuleList
 olcModulePath: /opt/bitnami/openldap/lib/openldap
 olcModuleLoad: memberof.so
