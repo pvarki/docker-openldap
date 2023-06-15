@@ -1,21 +1,14 @@
-# openLDAP for PVARKI
+# openLDAP with PVARKI defaults
+
+## Used as git submodule
+
+This repo is used as submodule in https://github.com/pvarki/docker-rasenmaeher-integration
+it is probably a good idea to handle all development via it because it has docker composition
+for bringin up all the other services rasenmaeher-api depends on
 
 ## Local testing
 
 1. Run ```docker-compose -f docker-compose-local.yml up```
-
-This sets bootstraps Keycloak, openLDAP and postgres automatically, and also configures Keycloak.
-
-## Create users
-
-1. Open http://keycloak:8080/admin/master/console/ in browser
-2. Select realm RASENMAEHER
-3. Add group
-4. Create user
-
-This data should be automatically be sync with LDAP.
-
-## Testing
 
 Execute inside openldap container with uid of created user:
 
