@@ -1,4 +1,4 @@
-FROM docker.io/bitnami/openldap:2.5.14
+FROM docker.io/bitnamilegacy/openldap:2.5.14
 
 # Adds custom libopenldap.sh that:
 # 1. Properly disables anonymous access
