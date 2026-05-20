@@ -8,7 +8,7 @@ for bringin up all the other services rasenmaeher-api depends on
 
 ## Local testing
 
-1. Run ```docker-compose -f docker-compose-local.yml up```
+1. Run `docker-compose -f docker-compose-local.yml up`
 
 Execute inside openldap container with uid of created user:
 
