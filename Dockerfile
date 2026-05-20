@@ -1,4 +1,6 @@
-FROM docker.io/bitnamilegacy/openldap:2.5.14
+ARG OPENLDAP_VERSION_TAG=2.5.14
+
+FROM docker.io/bitnamilegacy/openldap:$OPENLDAP_VERSION_TAG AS production
 
 # Adds custom libopenldap.sh that:
 # 1. Properly disables anonymous access
