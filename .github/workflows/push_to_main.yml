@@ -2,13 +2,14 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 env:
   OPENLDAP_VERSION_TAG: 2.5.14
 
 jobs:
   publish:
     name: Publish Docker image
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set
     permissions:
       contents: read
       packages: write
