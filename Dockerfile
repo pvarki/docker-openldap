@@ -2,6 +2,13 @@ ARG OPENLDAP_VERSION_TAG=2.5.14
 
 FROM docker.io/bitnamilegacy/openldap:$OPENLDAP_VERSION_TAG AS production
 
+# Install debian updates
+USER root
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+USER 1001
+
 # Adds custom libopenldap.sh that:
 # 1. Properly disables anonymous access
 # 2. Adds memberof-support to openLDAP
