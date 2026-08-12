@@ -15,3 +15,15 @@ Execute inside openldap container with uid of created user:
 ```
 ldapsearch -LL -Y EXTERNAL -H ldapi:/// "(uid=testuser)" -b dc=example,dc=org memberOf
 ```
+
+## Versioning
+
+Versioning is handled with
+[bump-my-version](https://github.com/callowayproject/bump-my-version). To increment, use
+`bump-my-version bump build`.
+
+- Major, minor and patch are the OpenLDAP version
+- Build is change date for _this repo_
+
+When bumping the OpenLDAP version, remember to update `OPENLDAP_VERSION_TAG` in the `Dockerfile`
+and in workflows.
