@@ -3,6 +3,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+
+# Remember to change OPENLDAP_VERSION_TAG also in pull_request.yml and .bumpversion.toml
 env:
   OPENLDAP_VERSION_TAG: 2.5.14
 
@@ -20,6 +22,8 @@ jobs:
         with:
           product: openldap
           component: server
+          build-args: |
+            OPENLDAP_VERSION_TAG=${{ env.OPENLDAP_VERSION_TAG }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
